@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\Catalogos;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Catalogos\PaisCollection;
+use App\Http\Resources\Catalogos\PaisResource;
 use App\Models\Catalogos\CPais;
 use Illuminate\Http\Request;
 
@@ -13,10 +15,9 @@ class PaisController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): PaisCollection
     {
-        $paises = CPais::all();
-        return $paises;
+        return PaisCollection::make(CPais::all());
     }
 
     /**
@@ -45,11 +46,9 @@ class PaisController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(CPais $pais)
+    public function show(CPais $pais): PaisResource
     {
-        //dd($pais);
-        //
-        return $pais;
+        return PaisResource::make($pais);
     }
 
 

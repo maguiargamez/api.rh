@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //$this->call(CPaisSeeder::class);
-       // $this->call(CEntidadFederativaSeeder::class);
-        CPais::factory(3)->create();
+        $this->call(CPaisSeeder::class);
+        $this->call(CEntidadFederativaSeeder::class);
+        //CPais::factory(3)->create();
     }
 }

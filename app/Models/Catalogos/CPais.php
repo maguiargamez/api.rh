@@ -11,6 +11,10 @@ class CPais extends Model
     use HasFactory, SoftDeletes;
     protected $table = 'c_paises';
 
+    // protected $cast = [
+    //     'id' =>
+    // ];
+
     protected $fillable = [
         'clave',
         'valor',
