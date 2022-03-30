@@ -18,7 +18,7 @@ class CreateCPaisesTable extends Migration
             $table->string('clave')->length(2);
             $table->string('valor')->length(255);
             $table->string('nacionalidad')->length(255);
-            $table->boolean('activo')->default(true);
+            $table->boolean('activo', true);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -26,18 +26,22 @@ class PaisController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): PaisResource
     {
-        $request->validate(
-            [
-                'clave'=> 'required|string|max:3|unique:c_paises',
-                'valor'=> 'required|string|max:255',
-                'nacionalidad'=> 'required|string|max:255'
-            ]);
+        $request->validate([
+            'data.attributes.clave'=> ['required', 'string', 'max:3'],
+            'data.attributes.valor'=> ['required', 'string', 'max:255'],
+            'data.attributes.nacionalidad'=> ['required', 'string', 'max:255']
+        ]);
 
-            $pais = CPais::create($request->all());
+        $pais = CPais::create([
+            'clave' => $request->input('data.attributes.clave'),
+            'valor' => $request->input('data.attributes.valor'),
+            'nacionalidad' => $request->input('data.attributes.nacionalidad'),
+            //'activo' => $request->input('data.attributes.activo')
+        ]);
 
-        return $pais;
+        return PaisResource::make($pais);
     }
 
     /**

@@ -16,7 +16,7 @@ class PaisResource extends JsonResource
     {
         return [
                 'type' => 'c_paises',
-                'id' => $this->resource->getRouteKey(),
+                'id' => (string) $this->resource->getRouteKey(),
                 'attributes' => [
                     'clave' => $this->resource->clave,
                     'valor' => $this->resource->valor,
@@ -27,5 +27,12 @@ class PaisResource extends JsonResource
                     'self' => route('api.v1.catalogos.paises.show', $this->resource->getRouteKey())
                 ]
             ];
+    }
+
+    public function toResponse($request)
+    {
+        return parent::toResponse($request)->withHeaders([
+            'Location' => route('api.v1.catalogos.paises.show', $this->resource)
+        ]);
     }
 }

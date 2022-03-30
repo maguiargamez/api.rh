@@ -15,10 +15,15 @@ class CPais extends Model
     //     'id' =>
     // ];
 
+    protected $attributes = [
+        'activo' => true
+     ];
+
     protected $fillable = [
         'clave',
         'valor',
         'nacionalidad',
+        'activo'
     ];
 
     // //Relación uno a muchos
