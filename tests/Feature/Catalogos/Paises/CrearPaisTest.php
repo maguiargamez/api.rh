@@ -19,7 +19,7 @@ class CrearPaisTest extends TestCase
         $this->withoutExceptionHandling();
         $response= $this->postJson(route('api.v1.catalogos.paises.store'), [
             'data' => [
-                'type' => 'paises',
+                'type' => 'c_paises',
                 'attributes' => [
                     'clave' => 'PRB',
                     'valor' => 'Pais de prueba',
@@ -76,9 +76,11 @@ class CrearPaisTest extends TestCase
         //$this->withoutExceptionHandling();
         $response= $this->postJson(route('api.v1.catalogos.paises.store'), [
             'data' => [
-                'type' => 'paises',
+                'type' => 'c_paises',
                 'attributes' => [
                     'valor' => 'Pais de prueba',
+
+
                     'nacionalidad' => 'Nacionalidad de prueba'
                 ]
             ]
@@ -93,14 +95,16 @@ class CrearPaisTest extends TestCase
         //$this->withoutExceptionHandling();
         $response= $this->postJson(route('api.v1.catalogos.paises.store'), [
             'data' => [
-                'type' => 'paises',
+                'type' => 'c_paises',
                 'attributes' => [
                     'valor' => 'Pais de prueba',
-                    'clave' => 'ABCD',
+                    'clave' => 'ABCA',
                     'nacionalidad' => 'Nacionalidad de prueba'
                 ]
             ]
         ]);
+
+
 
         $response->assertJsonApiValidationErrors('clave');
     }
