@@ -16,16 +16,18 @@ class CrearPaisTest extends TestCase
     /** @test */
     public function pueden_crear_paises()
     {
-        $this->withoutExceptionHandling();
+        //$this->withoutExceptionHandling();
         $response= $this->postJson(route('api.v1.catalogos.paises.store'), [
-            'data' => [
+
+
                 'type' => 'c_paises',
                 'attributes' => [
                     'clave' => 'PRB',
                     'valor' => 'Pais de prueba',
                     'nacionalidad' => 'Nacionalidad de prueba'
                 ]
-            ]
+
+
         ]);
 
         $response->assertCreated();

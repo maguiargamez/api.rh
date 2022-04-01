@@ -28,6 +28,8 @@ class PaisController extends Controller
      */
     public function store(Request $request): PaisResource
     {
+        //dd($request);
+
         $request->validate([
             'data.attributes.clave'=> ['required', 'string', 'max:3'],
             'data.attributes.valor'=> ['required', 'string', 'max:255'],

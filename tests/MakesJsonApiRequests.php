@@ -68,10 +68,21 @@ trait MakesJsonApiRequests
     }
 
 
-    public function json($method, $uri, array $data= [], array $headers = []) : TestResponse
+    public function json($method, $uri, array $data= [], array $headers = []): TestResponse
     {
         $headers['accept']= 'application/vnd.api+json';
-        return parent::json($method, $uri, $data, $headers);
+
+        $datDat['data'] = $data;
+
+        //dd($data, $datDat);
+        //$data= $datDat;
+
+        ///$formattedData['data']['attributes'] = $data;
+        //$formattedData['data']['type'] = (string) Str::of($uri)->after('v1/');
+        //dd($formattedData);
+
+
+        return parent::json($method, $uri, $datDat, $headers);
     }
 
     public function postJson($uri, array $data = [], array $headers = []): TestResponse
