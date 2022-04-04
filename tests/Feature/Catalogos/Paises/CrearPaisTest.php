@@ -16,18 +16,11 @@ class CrearPaisTest extends TestCase
     /** @test */
     public function pueden_crear_paises()
     {
-        //$this->withoutExceptionHandling();
+        $this->withoutExceptionHandling();
         $response= $this->postJson(route('api.v1.catalogos.paises.store'), [
-
-
-                'type' => 'c_paises',
-                'attributes' => [
-                    'clave' => 'PRB',
-                    'valor' => 'Pais de prueba',
-                    'nacionalidad' => 'Nacionalidad de prueba'
-                ]
-
-
+            'clave' => 'PRB',
+            'valor' => 'Pais de prueba',
+            'nacionalidad' => 'Nacionalidad de prueba'
         ]);
 
         $response->assertCreated();
@@ -59,72 +52,40 @@ class CrearPaisTest extends TestCase
     public function valor_es_obligatorio()
     {
         //$this->withoutExceptionHandling();
-        $response= $this->postJson(route('api.v1.catalogos.paises.store'), [
-            'data' => [
-                'type' => 'paises',
-                'attributes' => [
-                    'clave' => 'PRB',
-                    'nacionalidad' => 'Nacionalidad de prueba'
-                ]
-            ]
-        ]);
-
-        $response->assertJsonApiValidationErrors('valor');
+        $this->postJson(route('api.v1.catalogos.paises.store'), [
+            'clave' => 'PRB',
+            'nacionalidad' => 'Nacionalidad de prueba'
+        ])->assertJsonApiValidationErrors('valor');
     }
 
         /** @test */
     public function clave_es_obligatorio()
     {
         //$this->withoutExceptionHandling();
-        $response= $this->postJson(route('api.v1.catalogos.paises.store'), [
-            'data' => [
-                'type' => 'c_paises',
-                'attributes' => [
-                    'valor' => 'Pais de prueba',
-
-
-                    'nacionalidad' => 'Nacionalidad de prueba'
-                ]
-            ]
-        ]);
-
-        $response->assertJsonApiValidationErrors('clave');
+        $this->postJson(route('api.v1.catalogos.paises.store'), [
+            'valor' => 'Pais de prueba',
+            'nacionalidad' => 'Nacionalidad de prueba'
+        ])->assertJsonApiValidationErrors('clave');
     }
 
     /** @test */
     public function clave_debe_tener_max_3_caracteres()
     {
         //$this->withoutExceptionHandling();
-        $response= $this->postJson(route('api.v1.catalogos.paises.store'), [
-            'data' => [
-                'type' => 'c_paises',
-                'attributes' => [
-                    'valor' => 'Pais de prueba',
-                    'clave' => 'ABCA',
-                    'nacionalidad' => 'Nacionalidad de prueba'
-                ]
-            ]
-        ]);
-
-
-
-        $response->assertJsonApiValidationErrors('clave');
+        $this->postJson(route('api.v1.catalogos.paises.store'), [
+            'valor' => 'Pais de prueba',
+            'clave' => 'ABCD',
+            'nacionalidad' => 'Nacionalidad de prueba'
+        ])->assertJsonApiValidationErrors('clave');
     }
 
     /** @test */
     public function nacionalidad_es_obligatorio()
     {
         //$this->withoutExceptionHandling();
-        $response= $this->postJson(route('api.v1.catalogos.paises.store'), [
-            'data' => [
-                'type' => 'paises',
-                'attributes' => [
-                    'clave' => 'PRB',
-                    'valor' => 'Pais de prueba'
-                ]
-            ]
-        ]);
-
-        $response->assertJsonApiValidationErrors('nacionalidad');
+        $this->postJson(route('api.v1.catalogos.paises.store'), [
+            'clave' => 'PRB',
+            'valor' => 'Pais de prueba'
+        ])->assertJsonApiValidationErrors('nacionalidad');
     }
 }

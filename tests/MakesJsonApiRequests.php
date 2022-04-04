@@ -10,7 +10,7 @@ use PHPUnit\Framework\ExpectationFailedException;
 
 trait MakesJsonApiRequests
 {
-
+    protected bool $formatJsonApiDocument = true;
     protected function setUp(): void
     {
         parent::setUp();
@@ -72,17 +72,12 @@ trait MakesJsonApiRequests
     {
         $headers['accept']= 'application/vnd.api+json';
 
-        $datDat['data'] = $data;
-
-        //dd($data, $datDat);
-        //$data= $datDat;
-
-        ///$formattedData['data']['attributes'] = $data;
-        //$formattedData['data']['type'] = (string) Str::of($uri)->after('v1/');
-        //dd($formattedData);
-
-
-        return parent::json($method, $uri, $datDat, $headers);
+        if($this->formatJsonApiDocument)
+        {
+            $data['data']['attributes'] = $data;
+            $data['data']['type'] = (string) Str::of($uri)->after('v1/');
+        }
+        return parent::json($method, $uri, $data, $headers);
     }
 
     public function postJson($uri, array $data = [], array $headers = []): TestResponse
