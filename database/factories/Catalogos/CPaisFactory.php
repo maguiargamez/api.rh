@@ -21,7 +21,7 @@ class CPaisFactory extends Factory
             'clave' => $this->faker->stateAbbr(),
             'valor' => $state,
             'nacionalidad' => $state,
-            'activo' => true
+            'activo' => 1
         ];
     }
 }
