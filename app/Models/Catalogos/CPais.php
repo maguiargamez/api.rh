@@ -16,7 +16,7 @@ class CPais extends Model
     // ];
 
     protected $attributes = [
-        'activo' => true
+        'activo' => 1
      ];
 
     protected $fillable = [

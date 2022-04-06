@@ -21,7 +21,7 @@ class PaisResource extends JsonResource
                     'clave' => $this->resource->clave,
                     'valor' => $this->resource->valor,
                     'nacionalidad' => $this->resource->nacionalidad,
-                    'activo' => $this->resource->activo,
+                    'activo' => (int) $this->resource->activo,
                 ],
                 'links' => [
                     'self' => route('api.v1.catalogos.paises.show', $this->resource->getRouteKey())

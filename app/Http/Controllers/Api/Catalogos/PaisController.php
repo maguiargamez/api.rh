@@ -67,16 +67,29 @@ class PaisController extends Controller
      */
     public function update(Request $request, CPais $pais)
     {
-        $request->validate(
+        /*$request->validate(
             [
                 'clave'=> 'required|string|max:3|unique:c_paises,clave,'.$pais->id,
                 'valor'=> 'required|string|max:255',
                 'nacionalidad'=> 'required|string|max:255'
-            ]);
+            ]);*/
 
-        $pais->update($request->all());
+        $request->validate([
+            'data.attributes.clave'=> ['required', 'string', 'max:3'],
+            'data.attributes.valor'=> ['required', 'string', 'max:255'],
+            'data.attributes.nacionalidad'=> ['required', 'string', 'max:255']
+        ]);
 
-        return $pais;
+        $pais->update([
+            'clave' => $request->input('data.attributes.clave'),
+            'valor' => $request->input('data.attributes.valor'),
+            'nacionalidad' => $request->input('data.attributes.nacionalidad'),
+            //'activo' => $request->input('data.attributes.activo')
+        ]);
+
+        //dd($pais);
+
+        return PaisResource::make($pais);
     }
 
     /**
