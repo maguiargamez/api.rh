@@ -15,9 +15,7 @@ class ActualizarPaisTest extends TestCase
     public function pueden_actualizar_paises()
     {
         //$this->withoutExceptionHandling();
-
         $pais = CPais::factory()->create();
-
         $response= $this->patchJson(route('api.v1.catalogos.paises.update', $pais), [
                     'clave' => 'PRA',
                     'valor' => 'Actualizado Pais de prueba',
@@ -46,5 +44,58 @@ class ActualizarPaisTest extends TestCase
                 ]
             ]
         ]);
+    }
+
+    /** @test */
+    public function valor_es_obligatorio()
+    {
+        //$this->withoutExceptionHandling();
+        $pais = CPais::factory()->create();
+        $response= $this->patchJson(route('api.v1.catalogos.paises.update', $pais), [
+            'clave' => 'PRB',
+            'nacionalidad' => 'Nacionalidad de prueba'
+        ]);
+
+        $response->assertJsonApiValidationErrors('valor');
+    }
+
+    /** @test */
+    public function clave_es_obligatorio()
+    {
+        //$this->withoutExceptionHandling();
+        $pais = CPais::factory()->create();
+        $response= $this->patchJson(route('api.v1.catalogos.paises.update', $pais), [
+            'valor' => 'Pais de prueba',
+            'nacionalidad' => 'Nacionalidad de prueba'
+        ]);
+
+        $response->assertJsonApiValidationErrors('clave');
+    }
+
+    /** @test */
+    public function clave_debe_tener_max_3_caracteres()
+    {
+        //$this->withoutExceptionHandling();
+        $pais = CPais::factory()->create();
+        $response= $this->patchJson(route('api.v1.catalogos.paises.update', $pais), [
+            'valor' => 'Pais de prueba',
+            'clave' => 'ABCA',
+            'nacionalidad' => 'Nacionalidad de prueba'
+        ]);
+
+        $response->assertJsonApiValidationErrors('clave');
+    }
+
+    /** @test */
+    public function nacionalidad_es_obligatorio()
+    {
+        //$this->withoutExceptionHandling();
+        $pais = CPais::factory()->create();
+        $response= $this->patchJson(route('api.v1.catalogos.paises.update', $pais), [
+            'clave' => 'PRB',
+            'valor' => 'Pais de prueba'
+        ]);
+
+        $response->assertJsonApiValidationErrors('nacionalidad');
     }
 }

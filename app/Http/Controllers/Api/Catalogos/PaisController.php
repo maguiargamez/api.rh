@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Catalogos;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Catalogos\GuardarPaisRequest;
 use App\Http\Resources\Catalogos\PaisCollection;
 use App\Http\Resources\Catalogos\PaisResource;
 use App\Models\Catalogos\CPais;
@@ -23,25 +24,13 @@ class PaisController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Catalogos\GuardarPaisRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request): PaisResource
+    public function store(GuardarPaisRequest $request): PaisResource
     {
         //dd($request);
-
-        $request->validate([
-            'data.attributes.clave'=> ['required', 'string', 'max:3'],
-            'data.attributes.valor'=> ['required', 'string', 'max:255'],
-            'data.attributes.nacionalidad'=> ['required', 'string', 'max:255']
-        ]);
-
-        $pais = CPais::create([
-            'clave' => $request->input('data.attributes.clave'),
-            'valor' => $request->input('data.attributes.valor'),
-            'nacionalidad' => $request->input('data.attributes.nacionalidad'),
-            //'activo' => $request->input('data.attributes.activo')
-        ]);
+        $pais = CPais::create($request->validated());
 
         return PaisResource::make($pais);
     }
@@ -61,11 +50,11 @@ class PaisController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Catalogos\GuardarPaisRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CPais $pais)
+    public function update(CPais $pais, GuardarPaisRequest $request) : PaisResource
     {
         /*$request->validate(
             [
@@ -73,21 +62,7 @@ class PaisController extends Controller
                 'valor'=> 'required|string|max:255',
                 'nacionalidad'=> 'required|string|max:255'
             ]);*/
-
-        $request->validate([
-            'data.attributes.clave'=> ['required', 'string', 'max:3'],
-            'data.attributes.valor'=> ['required', 'string', 'max:255'],
-            'data.attributes.nacionalidad'=> ['required', 'string', 'max:255']
-        ]);
-
-        $pais->update([
-            'clave' => $request->input('data.attributes.clave'),
-            'valor' => $request->input('data.attributes.valor'),
-            'nacionalidad' => $request->input('data.attributes.nacionalidad'),
-            //'activo' => $request->input('data.attributes.activo')
-        ]);
-
-        //dd($pais);
+        $pais->update($request->validated());
 
         return PaisResource::make($pais);
     }
@@ -101,6 +76,6 @@ class PaisController extends Controller
     public function destroy(CPais $pais)
     {
         $pais->delete();
-        return $pais;
+        return response()->noContent();
     }
 }
