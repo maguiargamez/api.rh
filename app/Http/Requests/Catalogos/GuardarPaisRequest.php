@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Catalogos;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class GuardarPaisRequest extends FormRequest
 {
@@ -24,7 +25,7 @@ class GuardarPaisRequest extends FormRequest
     public function rules()
     {
         return [
-            'data.attributes.clave'=> ['required', 'string', 'max:3'],
+            'data.attributes.clave'=> ['required', 'string', 'max:3', Rule::unique('c_paises', 'clave')->ignore($this->route('pais'))],
             'data.attributes.valor'=> ['required', 'string', 'max:255'],
             'data.attributes.nacionalidad'=> ['required', 'string', 'max:255']
         ];

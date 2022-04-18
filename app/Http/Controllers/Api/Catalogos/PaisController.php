@@ -8,6 +8,7 @@ use App\Http\Resources\Catalogos\PaisCollection;
 use App\Http\Resources\Catalogos\PaisResource;
 use App\Models\Catalogos\CPais;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PaisController extends Controller
 {
@@ -16,9 +17,14 @@ class PaisController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): PaisCollection
+    public function index(Request $request): PaisCollection
     {
-        return PaisCollection::make(CPais::all());
+        $sortField = $request->input('sort');
+        $sortDirection= Str::of($sortField)->startsWith('-') ? 'desc' : 'asc';
+        $sortField = ltrim($sortField, '-');
+
+        $paises = CPais::orderBy($sortField, $sortDirection)->get();
+        return PaisCollection::make($paises);
     }
 
     /**
