@@ -70,4 +70,21 @@ class OrdenarPaisTest extends TestCase
             'C clave', 'B clave', 'A clave'
         ]);
     }
+
+    /** @test */
+    public function puede_ordenar_paises_por_valor_y_clave()
+    {
+        CPais::factory()->create(['clave'=>'A clave', 'valor'=> 'A valor']);
+        CPais::factory()->create(['clave'=>'B clave', 'valor'=> 'B valor']);
+        CPais::factory()->create(['clave'=>'A clave', 'valor'=> 'C valor' ]);
+
+
+        $url = route('api.v1.catalogos.paises.index', ['sort' => 'clave,-valor']);
+
+        //dd($this->getJson($url));
+
+        $this->getJson($url)->assertSeeInOrder([
+            'C valor', 'A valor', 'B valor'
+        ]);
+    }
 }

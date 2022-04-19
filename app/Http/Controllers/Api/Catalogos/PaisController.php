@@ -19,12 +19,21 @@ class PaisController extends Controller
      */
     public function index(Request $request): PaisCollection
     {
-        $sortField = $request->input('sort');
-        $sortDirection= Str::of($sortField)->startsWith('-') ? 'desc' : 'asc';
-        $sortField = ltrim($sortField, '-');
 
-        $paises = CPais::orderBy($sortField, $sortDirection)->get();
-        return PaisCollection::make($paises);
+        $sortFields = explode(',', $request->input('sort'));
+        $paises = CPais::query();
+
+        foreach ($sortFields as $sortField)
+        {
+            $sortDirection= Str::of($sortField)->startsWith('-') ? 'desc' : 'asc';
+            $sortField = ltrim($sortField, '-');
+
+            $paises->orderBy($sortField, $sortDirection);
+        }
+        //dd($paises->get());
+
+
+        return PaisCollection::make($paises->get());
     }
 
     /**
