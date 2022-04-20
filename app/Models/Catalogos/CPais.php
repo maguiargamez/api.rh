@@ -23,7 +23,8 @@ class CPais extends Model
         'clave',
         'valor',
         'nacionalidad',
-        'activo'
+        'activo',
+        'created_at'
     ];
 
     // //Relación uno a muchos

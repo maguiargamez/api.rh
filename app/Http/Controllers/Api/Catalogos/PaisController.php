@@ -17,23 +17,34 @@ class PaisController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request): PaisCollection
+    public function index(): PaisCollection
     {
 
-        $sortFields = explode(',', $request->input('sort'));
-        $paises = CPais::query();
+        $paises= CPais::allowedSorts(['clave', 'valor']);
 
-        foreach ($sortFields as $sortField)
+        //filters
+
+        $allowedFilters = ['clave', 'valor', 'month', 'year'];
+        foreach (request('filter', []) as $filter => $value)
         {
-            $sortDirection= Str::of($sortField)->startsWith('-') ? 'desc' : 'asc';
-            $sortField = ltrim($sortField, '-');
+            abort_unless(in_array($filter, $allowedFilters), 400);
+            if($filter==='year')
+            {
+                $paises->whereYear('created_at', $value);
+            }
+            else if($filter==='month')
+            {
+                $paises->whereMonth('created_at', $value);
+            }
+            else
+            {
+                $paises->where($filter, 'LIKE', '%'.$value.'%');
+            }
 
-            $paises->orderBy($sortField, $sortDirection);
         }
-        //dd($paises->get());
 
-
-        return PaisCollection::make($paises->get());
+        //dd($paises->jsonPaginate());
+        return PaisCollection::make($paises->jsonPaginate());
     }
 
     /**

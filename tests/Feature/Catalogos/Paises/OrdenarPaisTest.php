@@ -87,4 +87,17 @@ class OrdenarPaisTest extends TestCase
             'C valor', 'A valor', 'B valor'
         ]);
     }
+
+    /** @test */
+    public function no_puede_ordenar_paises_por_campos_desconocidos()
+    {
+        CPais::factory()->count(3)->create();
+
+        //paises?sort=unknown
+        $url = route('api.v1.catalogos.paises.index', ['sort' => 'unknown']);
+
+        //dd($this->getJson($url));
+
+        $this->getJson($url)->assertStatus(400);
+    }
 }
