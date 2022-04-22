@@ -63,7 +63,7 @@ class PaginarPaisesTest extends TestCase
     }
 
     /** @test */
-    public function puede_paginar_y_ordenar_paises()
+    public function puede_paginar_paises_ordenados()
     {
         CPais::factory()->create(['valor'=>'C valor']);
         CPais::factory()->create(['valor'=>'A valor']);
@@ -100,4 +100,33 @@ class PaginarPaisesTest extends TestCase
         $this->assertStringContainsString('sort=valor', $nextLink);
     }
 
+    /** @test */
+    public function puede_paginar_paises_filtrados()
+    {
+        CPais::factory()->count(3)->create();
+        CPais::factory()->create(['valor'=>'C laravel']);
+        CPais::factory()->create(['valor'=>'A laravel']);
+        CPais::factory()->create(['valor'=>'B laravel']);
+
+        //paises?filter[valor]=laravel&page[size]=1&page[number]=2
+        $url = route('api.v1.catalogos.paises.index', [
+            'filter[valor]' => 'laravel',
+            'page' => [
+                'size' => 1,
+                'number' => 2
+            ]
+        ]);
+
+        $response = $this->getJson($url);
+
+        $firstLink = urldecode($response->json('links.first'));
+        $lastLink = urldecode($response->json('links.last'));
+        $prevLink = urldecode($response->json('links.prev'));
+        $nextLink = urldecode($response->json('links.next'));
+
+        $this->assertStringContainsString('filter[valor]=laravel', $firstLink);
+        $this->assertStringContainsString('filter[valor]=laravel', $lastLink);
+        $this->assertStringContainsString('filter[valor]=laravel', $prevLink);
+        $this->assertStringContainsString('filter[valor]=laravel', $nextLink);
+    }
 }
