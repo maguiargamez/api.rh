@@ -21,7 +21,7 @@ class CrearPaisTest extends TestCase
             'clave' => 'PRB',
             'valor' => 'Pais de prueba',
             'nacionalidad' => 'Nacionalidad de prueba'
-        ])->dump();
+        ]);
 
         $response->assertCreated();
         $pais = CPais::first();

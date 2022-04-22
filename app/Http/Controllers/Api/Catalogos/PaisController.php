@@ -19,14 +19,32 @@ class PaisController extends Controller
      */
     public function index(): PaisCollection
     {
-        $paises= CPais::query()
-            ->allowedFilters(['clave', 'valor', 'month', 'year'])
-            ->allowedSorts(['clave', 'valor'])
-            ->sparseFieldset()
-            ->jsonPaginate();
+
+        $paises= CPais::allowedSorts(['clave', 'valor']);
+
+        //filters
+
+        $allowedFilters = ['clave', 'valor', 'month', 'year'];
+        foreach (request('filter', []) as $filter => $value)
+        {
+            abort_unless(in_array($filter, $allowedFilters), 400);
+            if($filter==='year')
+            {
+                $paises->whereYear('created_at', $value);
+            }
+            else if($filter==='month')
+            {
+                $paises->whereMonth('created_at', $value);
+            }
+            else
+            {
+                $paises->where($filter, 'LIKE', '%'.$value.'%');
+            }
+
+        }
 
         //dd($paises->jsonPaginate());
-        return PaisCollection::make($paises);
+        return PaisCollection::make($paises->jsonPaginate());
     }
 
     /**
@@ -49,13 +67,8 @@ class PaisController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($pais): PaisResource
+    public function show(CPais $pais): PaisResource
     {
-        $pais = CPais::where('id', $pais)
-            ->sparseFieldset()
-            ->firstOrFail();
-        //$tt = PaisResource::make($pais);
-        //dd($tt);
         return PaisResource::make($pais);
     }
 
