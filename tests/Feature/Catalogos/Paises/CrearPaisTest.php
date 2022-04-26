@@ -34,7 +34,7 @@ class CrearPaisTest extends TestCase
 
         $response->assertExactJson([
             'data' => [
-                'type' => 'c_paises',
+                'type' => 'paises',
                 'id' => (string) $pais->getRouteKey(),
                 'attributes' => [
                     'clave' => 'PRB',

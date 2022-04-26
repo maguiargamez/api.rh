@@ -20,7 +20,7 @@ class ListarPaisesTest extends TestCase
         $response= $this->getJson(route('api.v1.catalogos.paises.show', $pais->getRouteKey()));
         $response->assertJson([
             'data' => [
-                'type' => 'c_paises',
+                'type' => 'paises',
                 'id' => $pais->getRouteKey(),
                 'attributes' => [
                     'clave' => $pais->clave,
@@ -44,7 +44,7 @@ class ListarPaisesTest extends TestCase
         $response->assertJson([
             'data' => [
                 [
-                    'type' => 'c_paises',
+                    'type' => 'paises',
                     'id' => (string) $paises[0]->getRouteKey(),
                     'attributes' => [
                         'clave' => $paises[0]->clave,
@@ -57,7 +57,7 @@ class ListarPaisesTest extends TestCase
                     ]
                 ],
                 [
-                    'type' => 'c_paises',
+                    'type' => 'paises',
                     'id' => (string) $paises[1]->getRouteKey(),
                     'attributes' => [
                         'clave' => $paises[1]->clave,
@@ -70,7 +70,7 @@ class ListarPaisesTest extends TestCase
                     ]
                 ],
                 [
-                    'type' => 'c_paises',
+                    'type' => 'paises',
                     'id' => (string) $paises[2]->getRouteKey(),
                     'attributes' => [
                         'clave' => $paises[2]->clave,
