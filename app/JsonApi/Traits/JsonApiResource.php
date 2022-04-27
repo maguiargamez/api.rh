@@ -13,7 +13,7 @@ trait JsonApiResource
             'id' => (string) $this->resource->getRouteKey(),
             'attributes' => $this->filterAttributes($this->toJsonApi()),
             'links' => [
-                'self' => route('api.v1.'.$this->getPrefixRoute().$this->getResourceType().'.show', $this->resource->getRouteKey())
+                'self' => route('api.v1.'.$this->getResourceType().'.show', $this->resource->getRouteKey())
             ]
         ];
     }
@@ -22,7 +22,7 @@ trait JsonApiResource
     {
         $response->header(
             'Location',
-            route('api.v1.'.$this->getPrefixRoute().$this->getResourceType().'.show', $this->resource)
+            route('api.v1.'.$this->getResourceType().'.show', $this->resource)
         );
     }
 

@@ -17,11 +17,11 @@ class CrearPaisTest extends TestCase
     public function pueden_crear_paises()
     {
         //$this->withoutExceptionHandling();
-        $response= $this->postJson(route('api.v1.catalogos.paises.store'), [
+        $response= $this->postJson(route('api.v1.c_paises.store'), [
             'clave' => 'PRB',
             'valor' => 'Pais de prueba',
             'nacionalidad' => 'Nacionalidad de prueba'
-        ])->dump();
+        ]);
 
         $response->assertCreated();
         $pais = CPais::first();
@@ -29,12 +29,12 @@ class CrearPaisTest extends TestCase
 
         $response->assertHeader(
             'Location',
-            route('api.v1.catalogos.paises.show', $pais)
+            route('api.v1.c_paises.show', $pais)
         );
 
         $response->assertExactJson([
             'data' => [
-                'type' => 'paises',
+                'type' => 'c_paises',
                 'id' => (string) $pais->getRouteKey(),
                 'attributes' => [
                     'clave' => 'PRB',
@@ -43,7 +43,7 @@ class CrearPaisTest extends TestCase
                     'activo' => 1
                 ],
                 'links' => [
-                    'self' => route('api.v1.catalogos.paises.show', $pais)
+                    'self' => route('api.v1.c_paises.show', $pais)
                 ]
             ]
         ]);
@@ -53,7 +53,7 @@ class CrearPaisTest extends TestCase
     public function valor_es_obligatorio()
     {
         //$this->withoutExceptionHandling();
-        $response= $this->postJson(route('api.v1.catalogos.paises.store'), [
+        $response= $this->postJson(route('api.v1.c_paises.store'), [
             'clave' => 'PRB',
             'nacionalidad' => 'Nacionalidad de prueba'
         ]);
@@ -65,7 +65,7 @@ class CrearPaisTest extends TestCase
     public function clave_es_obligatorio()
     {
         //$this->withoutExceptionHandling();
-        $response= $this->postJson(route('api.v1.catalogos.paises.store'), [
+        $response= $this->postJson(route('api.v1.c_paises.store'), [
                     'valor' => 'Pais de prueba',
                     'nacionalidad' => 'Nacionalidad de prueba'
         ]);
@@ -77,7 +77,7 @@ class CrearPaisTest extends TestCase
     public function clave_debe_tener_max_3_caracteres()
     {
         //$this->withoutExceptionHandling();
-        $response= $this->postJson(route('api.v1.catalogos.paises.store'), [
+        $response= $this->postJson(route('api.v1.c_paises.store'), [
             'valor' => 'Pais de prueba',
             'clave' => 'ABCA',
             'nacionalidad' => 'Nacionalidad de prueba'
@@ -90,7 +90,7 @@ class CrearPaisTest extends TestCase
     public function nacionalidad_es_obligatorio()
     {
         //$this->withoutExceptionHandling();
-        $response= $this->postJson(route('api.v1.catalogos.paises.store'), [
+        $response= $this->postJson(route('api.v1.c_paises.store'), [
             'clave' => 'PRB',
             'valor' => 'Pais de prueba'
         ]);

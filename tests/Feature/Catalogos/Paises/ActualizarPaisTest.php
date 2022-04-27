@@ -16,7 +16,7 @@ class ActualizarPaisTest extends TestCase
     {
         //$this->withoutExceptionHandling();
         $pais = CPais::factory()->create();
-        $response= $this->patchJson(route('api.v1.catalogos.paises.update', $pais), [
+        $response= $this->patchJson(route('api.v1.c_paises.update', $pais), [
                     'clave' => 'PRA',
                     'valor' => 'Actualizado Pais de prueba',
                     'nacionalidad' => 'Actualizado Nacionalidad de prueba'
@@ -24,25 +24,11 @@ class ActualizarPaisTest extends TestCase
 
         $response->assertOk();
 
-        $response->assertHeader(
-            'Location',
-            route('api.v1.catalogos.paises.show', $pais)
-        );
-
-        $response->assertExactJson([
-            'data' => [
-                'type' => 'paises',
-                'id' => (string) $pais->getRouteKey(),
-                'attributes' => [
+        $response->assertJsonApiResource($pais, [
                     'clave' => 'PRA',
                     'valor' => 'Actualizado Pais de prueba',
                     'nacionalidad' => 'Actualizado Nacionalidad de prueba',
                     'activo' => 1
-                ],
-                'links' => [
-                    'self' => route('api.v1.catalogos.paises.show', $pais)
-                ]
-            ]
         ]);
     }
 
@@ -51,7 +37,7 @@ class ActualizarPaisTest extends TestCase
     {
         //$this->withoutExceptionHandling();
         $pais = CPais::factory()->create();
-        $response= $this->patchJson(route('api.v1.catalogos.paises.update', $pais), [
+        $response= $this->patchJson(route('api.v1.c_paises.update', $pais), [
             'clave' => 'PRB',
             'nacionalidad' => 'Nacionalidad de prueba'
         ]);
@@ -64,7 +50,7 @@ class ActualizarPaisTest extends TestCase
     {
         //$this->withoutExceptionHandling();
         $pais = CPais::factory()->create();
-        $response= $this->patchJson(route('api.v1.catalogos.paises.update', $pais), [
+        $response= $this->patchJson(route('api.v1.c_paises.update', $pais), [
             'valor' => 'Pais de prueba',
             'nacionalidad' => 'Nacionalidad de prueba'
         ]);
@@ -77,7 +63,7 @@ class ActualizarPaisTest extends TestCase
     {
         //$this->withoutExceptionHandling();
         $pais = CPais::factory()->create();
-        $response= $this->patchJson(route('api.v1.catalogos.paises.update', $pais), [
+        $response= $this->patchJson(route('api.v1.c_paises.update', $pais), [
             'valor' => 'Pais de prueba',
             'clave' => 'ABCA',
             'nacionalidad' => 'Nacionalidad de prueba'
@@ -91,7 +77,7 @@ class ActualizarPaisTest extends TestCase
     {
         //$this->withoutExceptionHandling();
         $pais = CPais::factory()->create();
-        $response= $this->patchJson(route('api.v1.catalogos.paises.update', $pais), [
+        $response= $this->patchJson(route('api.v1.c_paises.update', $pais), [
             'clave' => 'PRB',
             'valor' => 'Pais de prueba'
         ]);

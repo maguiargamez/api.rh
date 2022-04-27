@@ -17,8 +17,4 @@ class PaisResource extends JsonResource
             'activo' => (int) $this->resource->activo,
         ];
     }
-
-    public function getPrefixRoute(){
-        return 'catalogos.';
-    }
 }

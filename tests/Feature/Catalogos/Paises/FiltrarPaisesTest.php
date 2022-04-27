@@ -23,7 +23,7 @@ class FiltrarPaisesTest extends TestCase
         ]);
 
         //paises?filter[valor]=Laravel
-        $url = route('api.v1.catalogos.paises.index', [
+        $url = route('api.v1.c_paises.index', [
             'filter' => [
                 'valor' => 'Laravel'
             ]
@@ -49,7 +49,7 @@ class FiltrarPaisesTest extends TestCase
         ]);
 
         //paises?filter[valor]=Laravel
-        $url = route('api.v1.catalogos.paises.index', [
+        $url = route('api.v1.c_paises.index', [
             'filter' => [
                 'clave' => 'ra'
             ]
@@ -79,7 +79,7 @@ class FiltrarPaisesTest extends TestCase
         //dd(CPais::query()->get());
 
         //paises?filter[valor]=Laravel
-        $url = route('api.v1.catalogos.paises.index', [
+        $url = route('api.v1.c_paises.index', [
             'filter' => [
                 'year' => 2021
             ]
@@ -114,7 +114,7 @@ class FiltrarPaisesTest extends TestCase
         //dd(CPais::query()->get());
 
         //paises?filter[valor]=Laravel
-        $url = route('api.v1.catalogos.paises.index', [
+        $url = route('api.v1.c_paises.index', [
             'filter' => [
                 'month' => 4
             ]
@@ -136,7 +136,7 @@ class FiltrarPaisesTest extends TestCase
         //dd(CPais::query()->get());
 
         //paises?filter[unknwon]=Laravel
-        $url = route('api.v1.catalogos.paises.index', [
+        $url = route('api.v1.c_paises.index', [
             'filter' => [
                 'unknwon' => 'filter'
             ]

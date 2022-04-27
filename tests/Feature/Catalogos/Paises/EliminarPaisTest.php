@@ -16,7 +16,7 @@ class EliminarPaisTest extends TestCase
     {
         $pais = CPais::factory()->create();
 
-        $this->deleteJson(route('api.v1.catalogos.paises.destroy', $pais))
+        $this->deleteJson(route('api.v1.c_paises.destroy', $pais))
             ->assertNoContent();
 
         //$this->assertDatabaseCount('c_paises', 0);
