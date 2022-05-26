@@ -19,7 +19,7 @@ class PaisCollection extends ResourceCollection
         return [
             'data' => $this->collection,
             'links' => [
-                'self' => route('api.v1.c_paises.index')
+                'self' => route('api.v1.catalogos.paises.index')
             ]
         ];
     }

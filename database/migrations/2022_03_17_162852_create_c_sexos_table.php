@@ -15,7 +15,7 @@ class CreateCSexosTable extends Migration
     {
         Schema::create('c_sexos', function (Blueprint $table) {
             $table->id();
-            $table->string('clave')->length(1);
+            $table->char('clave', 1);
             $table->string('valor')->length(100);
             $table->boolean('activo')->default(true);
             $table->timestamps();

@@ -53,7 +53,6 @@ class JsonApiQueryBuilder
             }
 
             $fields = explode(',', request('fields.'.$this->getResourceType()));
-            //dd(request('fields.'.$this->getResourceType()));
             $routeKeyName= $this->model->getRouteKeyName();
 
             if(! in_array($routeKeyName, $fields))
@@ -91,5 +90,4 @@ class JsonApiQueryBuilder
             return $this->model->getTable();
         };
     }
-
 }

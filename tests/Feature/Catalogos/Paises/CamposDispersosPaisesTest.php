@@ -16,9 +16,9 @@ class CamposDispersosPaisesTest extends TestCase
     {
         $pais= CPais::factory()->create();
         // paises?fields[paises]=valor,clave
-        $url = route('api.v1.c_paises.index', [
+        $url = route('api.v1.catalogos.paises.index', [
             'fields' => [
-                'c_paises' => 'id,valor'
+                'paises' => 'id,valor'
             ]
         ]);
 
@@ -44,10 +44,10 @@ class CamposDispersosPaisesTest extends TestCase
     {
         $pais= CPais::factory()->create();
         // paises?fields[paises]=valor,clave
-        $url = route('api.v1.c_paises.show', [
+        $url = route('api.v1.catalogos.paises.show', [
             'pais' => $pais,
             'fields' => [
-                'c_paises' => 'id,valor'
+                'paises' => 'id,valor'
             ]
         ]);
 
@@ -75,9 +75,9 @@ class CamposDispersosPaisesTest extends TestCase
     {
         $pais= CPais::factory()->create();
         // paises?fields[paises]=valor,clave
-        $url = route('api.v1.c_paises.index', [
+        $url = route('api.v1.catalogos.paises.index', [
             'fields' => [
-                'c_paises' => 'valor'
+                'paises' => 'valor'
             ]
         ]);
 
@@ -106,10 +106,10 @@ class CamposDispersosPaisesTest extends TestCase
     {
         $pais= CPais::factory()->create();
         // paises?fields[paises]=valor,clave
-        $url = route('api.v1.c_paises.show', [
+        $url = route('api.v1.catalogos.paises.show', [
             'pais' => $pais,
             'fields' => [
-                'c_paises' => 'valor'
+                'paises' => 'valor'
             ]
         ]);
 

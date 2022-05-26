@@ -15,7 +15,7 @@ class CreateCEstadosCivilesTable extends Migration
     {
         Schema::create('c_estados_civiles', function (Blueprint $table) {
             $table->id();
-            $table->string('clave')->length(5);
+            $table->char('clave', 3);
             $table->string('valor')->length(100);
             $table->boolean('activo')->default(true);
             $table->timestamps();

@@ -21,7 +21,7 @@ use Illuminate\Http\Request;
 Route::post('register', [RegisterController::class, 'store'])->name('api.v1.register');
 
 Route::group(['prefix' => 'catalogos'], function() {
-    Route::apiResource('paises', PaisController::class, ['parameters'=>['paises'=>'pais']])->names('api.v1.c_paises');
+    Route::apiResource('paises', PaisController::class, ['parameters'=>['paises'=>'pais']])->names('api.v1.catalogos.paises');
     Route::apiResource('municipios', PaisController::class)->names('api.v1.catalogos.municipios');
     //Route::get('paises/{pais}', [PaisController::class, 'show']);
 });

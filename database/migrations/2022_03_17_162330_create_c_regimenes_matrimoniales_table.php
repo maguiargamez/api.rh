@@ -15,7 +15,7 @@ class CreateCRegimenesMatrimonialesTable extends Migration
     {
         Schema::create('c_regimenes_matrimoniales', function (Blueprint $table) {
             $table->id();
-            $table->string('clave')->length(5);
+            $table->char('clave', 3);
             $table->string('valor')->length(100);
             $table->boolean('activo')->default(true);
             $table->timestamps();

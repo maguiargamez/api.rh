@@ -19,7 +19,7 @@ class OrdenarPaisTest extends TestCase
         CPais::factory()->create(['valor'=>'B valor']);
 
 
-        $url = route('api.v1.c_paises.index', ['sort' => 'valor']);
+        $url = route('api.v1.catalogos.paises.index', ['sort' => 'valor']);
 
         $this->getJson($url)->assertSeeInOrder([
             'A valor', 'B valor', 'C valor'
@@ -34,7 +34,7 @@ class OrdenarPaisTest extends TestCase
         CPais::factory()->create(['clave'=>'B clave']);
 
 
-        $url = route('api.v1.c_paises.index', ['sort' => 'clave']);
+        $url = route('api.v1.catalogos.paises.index', ['sort' => 'clave']);
 
         $this->getJson($url)->assertSeeInOrder([
             'A clave', 'B clave', 'C clave'
@@ -49,7 +49,7 @@ class OrdenarPaisTest extends TestCase
         CPais::factory()->create(['valor'=>'B valor']);
 
 
-        $url = route('api.v1.c_paises.index', ['sort' => '-valor']);
+        $url = route('api.v1.catalogos.paises.index', ['sort' => '-valor']);
 
         $this->getJson($url)->assertSeeInOrder([
             'C valor', 'B valor', 'A valor'
@@ -64,7 +64,7 @@ class OrdenarPaisTest extends TestCase
         CPais::factory()->create(['clave'=>'B clave']);
 
 
-        $url = route('api.v1.c_paises.index', ['sort' => '-clave']);
+        $url = route('api.v1.catalogos.paises.index', ['sort' => '-clave']);
 
         $this->getJson($url)->assertSeeInOrder([
             'C clave', 'B clave', 'A clave'
@@ -79,7 +79,7 @@ class OrdenarPaisTest extends TestCase
         CPais::factory()->create(['clave'=>'A clave', 'valor'=> 'C valor' ]);
 
 
-        $url = route('api.v1.c_paises.index', ['sort' => 'clave,-valor']);
+        $url = route('api.v1.catalogos.paises.index', ['sort' => 'clave,-valor']);
 
         //dd($this->getJson($url));
 
@@ -94,7 +94,7 @@ class OrdenarPaisTest extends TestCase
         CPais::factory()->count(3)->create();
 
         //paises?sort=unknown
-        $url = route('api.v1.c_paises.index', ['sort' => 'unknown']);
+        $url = route('api.v1.catalogos.paises.index', ['sort' => 'unknown']);
 
         //dd($this->getJson($url));
 

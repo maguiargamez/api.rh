@@ -17,7 +17,7 @@ class PaginarPaisesTest extends TestCase
         $paises= CPais::factory()->count(6)->create();
 
         //paises?page[size]=2&page[number]=2
-        $url = route('api.v1.c_paises.index', [
+        $url = route('api.v1.catalogos.paises.index', [
             'page' => [
                 'size' => 2,
                 'number' => 2
@@ -70,7 +70,7 @@ class PaginarPaisesTest extends TestCase
         CPais::factory()->create(['valor'=>'B valor']);
 
         //paises?sort=valor&page[size]=1&page[number]=2
-        $url = route('api.v1.c_paises.index', [
+        $url = route('api.v1.catalogos.paises.index', [
             'sort' => 'valor',
             'page' => [
                 'size' => 1,
@@ -109,7 +109,7 @@ class PaginarPaisesTest extends TestCase
         CPais::factory()->create(['valor'=>'B laravel']);
 
         //paises?filter[valor]=laravel&page[size]=1&page[number]=2
-        $url = route('api.v1.c_paises.index', [
+        $url = route('api.v1.catalogos.paises.index', [
             'filter[valor]' => 'laravel',
             'page' => [
                 'size' => 1,

@@ -14,18 +14,25 @@ class ListarPaisesTest extends TestCase
     /** @test */
     public function puede_buscar_un_solo_pais()
     {
-        //$this->withoutExceptionHandling();
+        $this->withoutExceptionHandling();
         $pais = CPais::factory()->create();
         //$response= $this->getJson('/v1/catalogos/paises/'.$pais->getRouteKey());
-        $response= $this->getJson(route('api.v1.c_paises.show', $pais->getRouteKey()));
-
-        $response->assertJsonApiResource( $pais, [
-            'clave' => $pais->clave,
-            'valor' => $pais->valor,
-            'nacionalidad' => $pais->nacionalidad,
-            'activo' => $pais->activo
+        $response= $this->getJson(route('api.v1.catalogos.paises.show', $pais->getRouteKey()));
+        $response->assertJson([
+            'data' => [
+                'type' => 'paises',
+                'id' => $pais->getRouteKey(),
+                'attributes' => [
+                    'clave' => $pais->clave,
+                    'valor' => $pais->valor,
+                    'nacionalidad' => $pais->nacionalidad,
+                    'activo' => $pais->activo,
+                ],
+                'links' => [
+                    'self' => route('api.v1.catalogos.paises.show', $pais->getRouteKey())
+                ]
+            ]
         ]);
-
     }
 
     /** @test */
@@ -33,12 +40,52 @@ class ListarPaisesTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $paises = CPais::factory(3)->create();
-        $response= $this->getJson(route('api.v1.c_paises.index'));
-
-        $response->assertJsonApiResourceCollection($paises, [
-            'clave', 'valor', 'nacionalidad', 'activo'
+        $response= $this->getJson(route('api.v1.catalogos.paises.index'));
+        $response->assertJson([
+            'data' => [
+                [
+                    'type' => 'paises',
+                    'id' => (string) $paises[0]->getRouteKey(),
+                    'attributes' => [
+                        'clave' => $paises[0]->clave,
+                        'valor' => $paises[0]->valor,
+                        'nacionalidad' => $paises[0]->nacionalidad,
+                        'activo' => $paises[0]->activo,
+                    ],
+                    'links' => [
+                        'self' => route('api.v1.catalogos.paises.show', $paises[0]->getRouteKey())
+                    ]
+                ],
+                [
+                    'type' => 'paises',
+                    'id' => (string) $paises[1]->getRouteKey(),
+                    'attributes' => [
+                        'clave' => $paises[1]->clave,
+                        'valor' => $paises[1]->valor,
+                        'nacionalidad' => $paises[1]->nacionalidad,
+                        'activo' => $paises[1]->activo,
+                    ],
+                    'links' => [
+                        'self' => route('api.v1.catalogos.paises.show', $paises[1]->getRouteKey())
+                    ]
+                ],
+                [
+                    'type' => 'paises',
+                    'id' => (string) $paises[2]->getRouteKey(),
+                    'attributes' => [
+                        'clave' => $paises[2]->clave,
+                        'valor' => $paises[2]->valor,
+                        'nacionalidad' => $paises[2]->nacionalidad,
+                        'activo' => $paises[2]->activo,
+                    ],
+                    'links' => [
+                        'self' => route('api.v1.catalogos.paises.show', $paises[2]->getRouteKey())
+                    ]
+                ],
+            ],
+            'links' => [
+                'self' => route('api.v1.catalogos.paises.index')
+            ]
         ]);
-
-
     }
 }

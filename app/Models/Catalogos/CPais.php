@@ -33,13 +33,12 @@ class CPais extends Model
     //     return $this->hasMany(CEntidadFederativa::class);
     // }
 
-    public $resourceType = 'c_paises';
+    public $resourceType = 'paises';
 
     public function getRouteKeyName()
     {
         return 'id';
     }
-
 
     public function scopeYear(Builder $query, $year)
     {
