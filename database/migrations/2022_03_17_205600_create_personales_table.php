@@ -36,8 +36,14 @@ class CreatePersonalesTable extends Migration
             $table->char('regimen_matrimonial_clave', 3);
             $table->string('regimen_matrimonial_valor')->length(100);
 
-            $table->string('pais_nacimiento')->length(2);
             $table->string('nacionalidad')->length(2);
+
+            $table->date('nacimiento_fecha');
+            $table->string('nacimiento_pais')->length(2);
+            $table->char('nacimiento_entidad_federativa_clave', 3);
+            $table->string('nacimiento_entidad_federativa_valor')->length(100);
+            $table->char('nacimiento_municipio_clave', 3);
+            $table->string('nacimiento_municipio_valor')->length(100);
 
             $table->timestamps();
             $table->softDeletes();
