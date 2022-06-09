@@ -10,5 +10,9 @@ class CTipoOrganoAdministrativo extends Model
 {
     use HasFactory;
 
+    protected $table = 'c_tipos_organos_administrativos';
 
+    protected $fillable = [
+        'valor'
+    ];
 }

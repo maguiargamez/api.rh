@@ -16,8 +16,9 @@ class CreatePersonalesTable extends Migration
         Schema::create('personales', function (Blueprint $table) {
             $table->id();
 
-            $table->char('sexo_clave', 1);
-            $table->string('sexo_valor')->length(100);
+            $table->unsignedBigInteger('id_c_sexo');
+            $table->foreign('id_c_sexo')->references('id')->on('c_sexos')->onDelete('cascade');
+
             $table->string('nombre')->length(255);
             $table->string('apellido_uno')->length(255);
             $table->string('apellido_dos')->length(255)->nullable();
@@ -29,21 +30,19 @@ class CreatePersonalesTable extends Migration
             $table->string('telefono_casa')->length(100);
             $table->string('celular_personal')->length(100);
 
+            $table->unsignedBigInteger('id_c_estado_civil');
+            $table->foreign('id_c_estado_civil')->references('id')->on('c_estados_civiles')->onDelete('cascade');
 
-            $table->char('estado_civil_clave', 3);
-            $table->string('estado_civil_valor')->length(100);
+            $table->unsignedBigInteger('id_c_regimen_matrimonial');
+            $table->foreign('id_c_regimen_matrimonial')->references('id')->on('c_regimenes_matrimoniales')->onDelete('cascade');
 
-            $table->char('regimen_matrimonial_clave', 3);
-            $table->string('regimen_matrimonial_valor')->length(100);
 
-            $table->string('nacionalidad')->length(2);
+            $table->unsignedBigInteger('nacionalidad');
+            $table->foreign('nacionalidad')->references('id')->on('c_paises')->onDelete('cascade');
 
             $table->date('nacimiento_fecha');
-            $table->string('nacimiento_pais')->length(2);
-            $table->char('nacimiento_entidad_federativa_clave', 3);
-            $table->string('nacimiento_entidad_federativa_valor')->length(100);
-            $table->char('nacimiento_municipio_clave', 3);
-            $table->string('nacimiento_municipio_valor')->length(100);
+            $table->unsignedBigInteger('nacimiento_municipio');
+            $table->foreign('nacimiento_municipio')->references('id')->on('c_municipios')->onDelete('cascade');
 
             $table->timestamps();
             $table->softDeletes();

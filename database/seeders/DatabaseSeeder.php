@@ -17,6 +17,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(CPaisSeeder::class);
         $this->call(CEntidadFederativaSeeder::class);
+        $this->call(CSexoSeeder::class);
+        $this->call(CEstadoCivilSeeder::class);
+        $this->call(CRegimenMatrimonialSeeder::class);
+        $this->call(CRelacionLaboralSeeder::class);
         //CPais::factory(3)->create();
     }
 }

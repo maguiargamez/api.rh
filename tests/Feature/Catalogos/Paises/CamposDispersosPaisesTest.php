@@ -84,9 +84,8 @@ class CamposDispersosPaisesTest extends TestCase
         //dd($pais);
 
         //dd(urldecode($url));
-        $response = $this->getJson($url);
-
-
+        $response = $this->getJson($url)->dump();
+        //dd($response);
 
         $response->assertJsonFragment([
             'valor' => $pais->valor
@@ -116,16 +115,17 @@ class CamposDispersosPaisesTest extends TestCase
         //dd($pais);
 
         //dd(urldecode($url));
-        $response = $this->getJson($url);
+        $response = $this->getJson($url)->dump();
 
 
 
         $response->assertJsonFragment([
+            'id'=> $pais->id,
             'valor' => $pais->valor
         ]);
 
         $response->assertJsonMissing([
-            'id'=> $pais->id,
+
             'clave'=> $pais->clave,
             'nacionalidad'=> $pais->nacionalidad,
             'activo'=> $pais->activo

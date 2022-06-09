@@ -17,6 +17,7 @@ class CreateEmpleadosTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_organo_administrativo');
             $table->foreign('id_organo_administrativo')->references('id')->on('organos_administrativos')->onDelete('cascade');
+
             $table->unsignedBigInteger('id_personal');
             $table->foreign('id_personal')->references('id')->on('personales')->onDelete('cascade');
             $table->unsignedBigInteger('id_c_categoria');

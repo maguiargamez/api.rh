@@ -17,10 +17,14 @@ class CreatePersonalesDomiciliosTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_personal');
             $table->foreign('id_personal')->references('id')->on('personales')->onDelete('cascade');
+
             $table->unsignedBigInteger('id_c_pais');
             $table->foreign('id_c_pais')->references('id')->on('c_paises')->onDelete('cascade');
+
             $table->unsignedBigInteger('id_c_municipio');
             $table->foreign('id_c_municipio')->references('id')->on('c_municipios')->onDelete('cascade')->nullable();
+
+
             $table->string('calle')->length(100);
             $table->string('numero_exterior')->length(10);
             $table->string('numero_interior')->length(10);
