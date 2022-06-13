@@ -2,6 +2,7 @@
 
 namespace App\Models\Catalogos;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -27,6 +28,11 @@ class CEntidadFederativa extends Model
     public function getRouteKeyName()
     {
         return 'id';
+    }
+
+    public function scopeClave(Builder $query, $clave)
+    {
+        $query->where('clave', $clave);
     }
 
     //Relación uno a muchos inversa

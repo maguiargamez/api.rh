@@ -1,31 +1,32 @@
 <?php
 
-namespace Tests\Feature\Catalogos\Paises;
+namespace Tests\Feature\Catalogos\Sexos;
 
 use App\Models\Catalogos\CPais;
+use App\Models\Catalogos\CSexo;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class FiltrarPaisesTest extends TestCase
+class FiltrarSexosTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    public function puede_filtrar_paises_por_valor()
+    public function puede_filtrar_sexos_por_valor()
     {
-        CPais::factory()->create([
-            'valor' => 'Narnia Laravel Go'
+        CSexo::factory()->create([
+            'valor' => 'Indefinido'
         ]);
 
-        CPais::factory()->create([
-            'valor' => 'Ding Dong Bell'
+        CSexo::factory()->create([
+            'valor' => 'No se'
         ]);
 
         //paises?filter[valor]=Laravel
-        $url = route('api.v1.catalogos.paises.index', [
+        $url = route('api.v1.catalogos.sexos.index', [
             'filter' => [
-                'valor' => 'Laravel'
+                'valor' => 'se'
             ]
         ]);
         //dd(urldecode($url));
@@ -33,25 +34,25 @@ class FiltrarPaisesTest extends TestCase
         $response = $this->getJson($url);
 
         $response->assertJsonCount(1, 'data');
-        $response->assertSee('Narnia Laravel Go');
-        $response->assertDontSee('Ding Dong Bell');
+        $response->assertSee('No se');
+        $response->assertDontSee('Indefinido');
     }
 
     /** @test */
-    public function puede_filtrar_paises_por_clave()
+    public function puede_filtrar_sexos_por_clave()
     {
-        CPais::factory()->create([
-            'clave' => 'clave go'
+        CSexo::factory()->create([
+            'clave' => 'X'
         ]);
 
-        CPais::factory()->create([
-            'clave' => 'clave ra'
+        CSexo::factory()->create([
+            'clave' => 'C'
         ]);
 
         //paises?filter[valor]=Laravel
-        $url = route('api.v1.catalogos.paises.index', [
+        $url = route('api.v1.catalogos.sexos.index', [
             'filter' => [
-                'clave' => 'ra'
+                'clave' => 'C'
             ]
         ]);
         //dd(urldecode($url));
@@ -59,27 +60,27 @@ class FiltrarPaisesTest extends TestCase
         $response = $this->getJson($url);
 
         $response->assertJsonCount(1, 'data');
-        $response->assertSee('clave ra');
-        $response->assertDontSee('clave go');
+        $response->assertSee('C');
+        $response->assertDontSee('X');
     }
 
     /** @test */
-    public function puede_filtrar_paises_por_anio()
+    public function puede_filtrar_sexos_por_anio()
     {
-        CPais::factory()->create([
-            'clave' => 'clave go',
+        CSexo::factory()->create([
+            'clave' => 'A',
             'created_at' => '2021-04-20 20:40:52'
         ]);
 
-        CPais::factory()->create([
-            'clave' => 'Clave ra',
+        CSexo::factory()->create([
+            'clave' => 'B',
             'created_at' => '2022-04-20 20:40:52'
         ]);
 
-        //dd(CPais::query()->get());
+        dd(CSexo::query()->get());
 
         //paises?filter[valor]=Laravel
-        $url = route('api.v1.catalogos.paises.index', [
+        $url = route('api.v1.catalogos.sexos.index', [
             'filter' => [
                 'year' => 2021
             ]
@@ -87,10 +88,11 @@ class FiltrarPaisesTest extends TestCase
         //dd(urldecode($url));
 
         $response = $this->getJson($url)->dump();
+        //dd($response);
 
         $response->assertJsonCount(1, 'data');
-        $response->assertSee('clave go');
-        $response->assertDontSee('clave ra');
+        $response->assertSee('A');
+        $response->assertDontSee('B');
     }
 
     /** @test */

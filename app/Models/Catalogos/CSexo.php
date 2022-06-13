@@ -18,7 +18,8 @@ class CSexo extends Model
 
     protected $fillable = [
         'clave',
-        'valor'
+        'valor'.
+        'created_at'
     ];
 
     public $resourceType = 'sexos';
@@ -28,8 +29,18 @@ class CSexo extends Model
         return 'id';
     }
 
-    public function scopeClave(Builder $query, clave)
+    public function scopeClave(Builder $query, $clave)
     {
         $query->where('clave', $clave);
+    }
+
+    public function scopeYear(Builder $query, $year)
+    {
+        $query->whereYear('created_at', $year);
+    }
+
+    public function scopeMonth(Builder $query, $month)
+    {
+        $query->whereMonth('created_at', $month);
     }
 }

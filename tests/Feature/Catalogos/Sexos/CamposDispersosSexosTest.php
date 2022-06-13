@@ -1,24 +1,25 @@
 <?php
 
-namespace Tests\Feature\Catalogos\Paises;
+namespace Tests\Feature\Catalogos\Sexos;
 
 use App\Models\Catalogos\CPais;
+use App\Models\Catalogos\CSexo;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class CamposDispersosPaisesTest extends TestCase
+class CamposDispersosSexosTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
     public function campos_especificos_pueden_solicitarse_index()
     {
-        $pais= CPais::factory()->create();
-        // paises?fields[paises]=valor,clave
-        $url = route('api.v1.catalogos.paises.index', [
+        $sexo= CSexo::factory()->create();
+        // sexos?fields[sexos]=valor,clave
+        $url = route('api.v1.catalogos.sexos.index', [
             'fields' => [
-                'paises' => 'id,valor'
+                'sexos' => 'id,valor'
             ]
         ]);
 
@@ -28,13 +29,12 @@ class CamposDispersosPaisesTest extends TestCase
         $response = $this->getJson($url);
 
         $response->assertJsonFragment([
-            'valor' => $pais->valor
+            'valor' => $sexo->valor
         ]);
 
         $response->assertJsonMissing([
-            'clave'=> $pais->clave,
-            'nacionalidad'=> $pais->nacionalidad,
-            'activo'=> $pais->activo
+            'clave'=> $sexo->clave,
+            'activo'=> $sexo->activo
         ]);
 
     }
@@ -42,30 +42,26 @@ class CamposDispersosPaisesTest extends TestCase
     /** @test */
     public function campos_especificos_pueden_solicitarse_show()
     {
-        $pais= CPais::factory()->create();
-        // paises?fields[paises]=valor,clave
-        $url = route('api.v1.catalogos.paises.show', [
-            'pais' => $pais,
+        $sexo= CSexo::factory()->create();
+        // sexos?fields[sexos]=valor,clave
+        $url = route('api.v1.catalogos.sexos.show', [
+            'sexo' => $sexo,
             'fields' => [
-                'paises' => 'id,valor'
+                'sexos' => 'id,valor'
             ]
         ]);
 
         //dd($pais);
-
         //dd(urldecode($url));
         $response = $this->getJson($url);
 
-
-
         $response->assertJsonFragment([
-            'valor' => $pais->valor
+            'valor' => $sexo->valor
         ]);
 
         $response->assertJsonMissing([
-            'clave'=> $pais->clave,
-            'nacionalidad'=> $pais->nacionalidad,
-            'activo'=> $pais->activo
+            'clave'=> $sexo->clave,
+            'activo'=> $sexo->activo
         ]);
 
     }
@@ -73,29 +69,27 @@ class CamposDispersosPaisesTest extends TestCase
     /** @test */
     public function clave_de_ruta_debe_ser_agregada_automaticamente_index()
     {
-        $pais= CPais::factory()->create();
-        // paises?fields[paises]=valor,clave
-        $url = route('api.v1.catalogos.paises.index', [
+        $sexo= CSexo::factory()->create();
+        // sexos?fields[sexos]=valor,clave
+        $url = route('api.v1.catalogos.sexos.index', [
             'fields' => [
-                'paises' => 'valor'
+                'sexos' => 'valor'
             ]
         ]);
 
         //dd($pais);
-
         //dd(urldecode($url));
         $response = $this->getJson($url)->dump();
         //dd($response);
 
         $response->assertJsonFragment([
-            'valor' => $pais->valor
+            'valor' => $sexo->valor
         ]);
 
         $response->assertJsonMissing([
-            'id'=> $pais->id,
-            'clave'=> $pais->clave,
-            'nacionalidad'=> $pais->nacionalidad,
-            'activo'=> $pais->activo
+            'id'=> $sexo->id,
+            'clave'=> $sexo->clave,
+            'activo'=> $sexo->activo
         ]);
 
     }
@@ -103,32 +97,28 @@ class CamposDispersosPaisesTest extends TestCase
     /** @test */
     public function clave_de_ruta_debe_ser_agregada_automaticamente_show()
     {
-        $pais= CPais::factory()->create();
-        // paises?fields[paises]=valor,clave
-        $url = route('api.v1.catalogos.paises.show', [
-            'pais' => $pais,
+        $sexo= CSexo::factory()->create();
+        // sexos?fields[sexos]=valor,clave
+        $url = route('api.v1.catalogos.sexos.show', [
+            'sexo' => $sexo,
             'fields' => [
-                'paises' => 'valor'
+                'sexos' => 'valor'
             ]
         ]);
 
-        //dd($pais);
-
+        //dd($sexo);
         //dd(urldecode($url));
         $response = $this->getJson($url)->dump();
 
 
-
         $response->assertJsonFragment([
-            //'id'=> $pais->id,
-            'valor' => $pais->valor
+            //'id'=> $sexo->id,
+            'valor' => $sexo->valor
         ]);
 
         $response->assertJsonMissing([
-
-            'clave'=> $pais->clave,
-            'nacionalidad'=> $pais->nacionalidad,
-            'activo'=> $pais->activo
+            'clave'=> $sexo->clave,
+            'activo'=> $sexo->activo
         ]);
 
     }
